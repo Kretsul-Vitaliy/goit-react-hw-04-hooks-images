@@ -112,3 +112,101 @@ Pixabay API поддерживает пагинацию, по умолчанию
   </div>
 </div>
 ```
+
+const findImages = useCallback(() => {
+fetch(
+`https://api.unsplash.com/search/photos?page=${page}&query=${find}&client_id=${clientId}`
+)
+.then(res => res.json())
+.then(response => {
+setPhotos(response.results.map(element => element.urls.small))
+// this.setState({
+// photos: response.results.map(element => element.urls.small),
+// });
+});
+}, [page, find]);
+
+export default function FriendList ({ friends }) {
+return (
+<FriendWrap>
+{friends.map((friend) => {
+return (
+<FriendListItem
+                        key={friend.id}
+                        avatar={friend.avatar}
+                        name={friend.name}
+                        status={friend.isOnline}>
+</FriendListItem>
+);
+}
+)}
+</FriendWrap>
+);
+};
+
+import PropTypes from "prop-types";
+import { Item, Image } from "./ImageGalleryItem.styled";
+
+const ImageGalleryItem = ({ pictures, showPicture }) => {
+return pictures.map(({ id, webformatURL, largeImageURL }) => (
+<Item key={id}>
+<Image
+src={webformatURL}
+alt={`card ${id}`}
+onClick={showPicture}
+data-url={largeImageURL}
+/>
+</Item>
+));
+};
+
+export default ImageGalleryItem;
+
+ImageGalleryItem.propTypes = {
+pictures: PropTypes.array.isRequired,
+showPicture: PropTypes.func,
+};
+
+async componentDidUpdate(prevProps, prevState) {
+if (prevProps.searchName !== this.props.searchName) {
+try {
+this.setState({ status: "pending" });
+const pictures = await pixabayApi(this.props.searchName, 1);
+if (pictures.total === 0) {
+return await Promise.reject(new Error("Try another name"));
+}
+this.setState({
+pictures: pictures.hits,
+status: "resolved",
+});
+} catch (error) {
+this.setState({ status: "rejected", error: error.message });
+}
+}
+
+    if (prevState.page !== this.state.page) {
+      try {
+        this.setState({ status: "pending" });
+        const pictures = await pixabayApi(
+          this.props.searchName,
+          this.state.page
+        );
+        if (pictures.total === 0) {
+          return await Promise.reject(new Error("Try another name"));
+        }
+        this.setState((prevState) => {
+          window.scrollBy({
+            top: 200,
+            behavior: "smooth",
+          });
+          return {
+            pictures: [...prevState.pictures, ...pictures.hits],
+            status: "resolved",
+          };
+        });
+      } catch (error) {
+        this.setState({ status: "rejected", error: error.message });
+      }
+    }
+
+}
