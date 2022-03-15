@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-
 import {
   SearchbarHeader,
   SearchForm,
@@ -15,6 +14,7 @@ export default class Searchbar extends Component {
   state = {
     foundImgs: "",
   };
+
   //метод для записи в state то что набираем в input
   handleNameChange = (event) => {
     this.setState({ foundImgs: event.currentTarget.value.toLowerCase() });
