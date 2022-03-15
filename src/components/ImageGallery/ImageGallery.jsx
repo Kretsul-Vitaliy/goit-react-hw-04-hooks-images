@@ -59,7 +59,7 @@ export default class ImageGallery extends Component {
             };
           });
           window.scrollBy({
-            top: 400,
+            top: 300,
             behavior: "smooth",
           });
         }

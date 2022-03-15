@@ -1,5 +1,8 @@
 import PropTypes from "prop-types";
-
+import {
+  ImageGalleryItemBox,
+  ImageGalleryItemImage,
+} from "./ImageGalleryItem.styled";
 // const ImageGalleryItem = ({ SearchNameImgs }) => {
 //   return SearchNameImgs.map(({ id, webformatURL, largeImageURL, tags }) => (
 //     <>
@@ -24,14 +27,16 @@ export default function ImageGalleryItem({ SearchNameImgs }) {
         const { id, webformatURL, largeImageURL, tags } = hit;
         return (
           // <li key={id}>
-          <li key={id + Math.random().toString(36).substr(2, 9)}>
-            <img
+          <ImageGalleryItemBox
+            key={id + Math.random().toString(36).substr(2, 9)}
+          >
+            <ImageGalleryItemImage
               src={webformatURL}
               alt={tags}
               //   onClick={showPicture}
               data-url={largeImageURL}
             />
-          </li>
+          </ImageGalleryItemBox>
         );
       })}
     </>
