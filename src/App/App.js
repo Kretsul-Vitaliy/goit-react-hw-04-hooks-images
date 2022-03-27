@@ -1,33 +1,62 @@
-import React, { Component } from "react";
+import React, { Component, lazy, Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GlobalStyle } from "../theme/GlobalStyle.styled";
+import Loader from "../components/Loader";
+
+//Компонент с ленивой загрузкой должен рендериться внутри компонента Suspense,
+// который позволяет нам показать запасное содержимое (например, индикатор загрузки)
+// пока происходит загрузка ленивого компонента.
 import Searchbar from "../components/Searchbar";
-import ImageGallery from "../components/ImageGallery";
+// const Searchbar = lazy(() => import("../components/Searchbar"));
+const ImageGallery = lazy(() => import("../components/ImageGallery"));
 
 export default class App extends Component {
-  // состояние. публичное свойство state. свойство экземпляра, всегда объект. от свойств этого объекта зависит разметка
+  // состояние. публичное свойство state. свойство экземпляра. от свойств этого объекта зависит разметка
   state = {
-    foundImgs: "",
-    // query: "",
+    searchQuery: "",
+    page: null,
+    selectedOption: null,
   };
 
-  //Метод для получения и записи в state App из SearchBar то что записали в input и отправили
-  handleSearchBarSubmit = (foundImgs) => {
-    // console.log(query);
-    this.setState({ foundImgs });
-    // console.log(this.state.SearchNameImgs);
+  //Метод записи в state, применили для записи в App из SearchBar то что записали в input и нажали на кнопку отправить
+  handleSearchBarSubmit = (searchQuery, page) => {
+    this.setState({
+      searchQuery,
+      page: 1,
+    });
+    // console.log(this.state.foundImgs);
   };
-
+  //Метод записи в state, применили для записи в App из SearchBar то что выбрали в Select в данном случае PerPage
+  // Создаём в родителе App функцию Callback handleSubmitPerPage. У неё есть входной параметр "selectedOption"
+  // этот параметр мы присваиваем в стейт нашего компонента, с помощью функции setState.
+  handleSubmitPerPage = (selectedOption) => {
+    this.setState(selectedOption);
+  };
   render() {
     return (
       <>
         <ToastContainer autoClose={3000} />
         <GlobalStyle />
-        <h3>goit-react-hw-03-image-finder</h3>
-        {this.state.foundImgs && <div>{this.state.foundImgs.totalHits}</div>}
-        <Searchbar onSubmit={this.handleSearchBarSubmit} />
-        <ImageGallery foundImgs={this.state.foundImgs} />
+        <Suspense
+          fallback={
+            <div>
+              Loading...
+              <Loader />
+            </div>
+          }
+        >
+          <Searchbar
+            onSubmit={this.handleSearchBarSubmit}
+            //Передаём в дочерний элемент через props функцию handleSubmitPerPage
+            onChange={this.handleSubmitPerPage}
+          />
+          <ImageGallery
+            searchQuery={this.state.searchQuery}
+            page={this.state.page}
+            selectedOption={this.state.selectedOption}
+          />
+        </Suspense>
       </>
     );
   }

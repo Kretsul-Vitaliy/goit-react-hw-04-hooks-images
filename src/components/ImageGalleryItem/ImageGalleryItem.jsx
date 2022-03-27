@@ -1,49 +1,41 @@
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
   ImageGalleryItemBox,
   ImageGalleryItemImage,
 } from "./ImageGalleryItem.styled";
-// const ImageGalleryItem = ({ SearchNameImgs }) => {
-//   return SearchNameImgs.map(({ id, webformatURL, largeImageURL, tags }) => (
-//     <>
-//       <li key={id}>
-//         <img
-//           src={webformatURL}
-//           alt={tags}
-//           //   onClick={showPicture}
-//           // data-url={largeImageURL}
-//         />
-//       </li>
-//     </>
-//   ));
-// };
+import Modal from "../Modal";
 
-// export default ImageGalleryItem;
-
-export default function ImageGalleryItem({ SearchNameImgs }) {
-  return (
-    <>
-      {SearchNameImgs.map((hit) => {
-        const { id, webformatURL, largeImageURL, tags } = hit;
-        return (
-          // <li key={id}>
-          <ImageGalleryItemBox
-            key={id + Math.random().toString(36).substr(2, 9)}
-          >
-            <ImageGalleryItemImage
-              src={webformatURL}
-              alt={tags}
-              //   onClick={showPicture}
-              data-url={largeImageURL}
-            />
-          </ImageGalleryItemBox>
-        );
-      })}
-    </>
-  );
+class ImageGalleryItem extends Component {
+  state = {
+    isModalOpen: false,
+  };
+  //метод открытия закрытия модального окна
+  toggleModal = () => {
+    this.setState((state) => ({ isModalOpen: !state.isModalOpen }));
+  };
+  render() {
+    const { webformatURL, tags, largeImageURL } = this.props;
+    const { isModalOpen } = this.state;
+    return (
+      <ImageGalleryItemBox>
+        <ImageGalleryItemImage
+          src={webformatURL}
+          alt={tags}
+          onClick={this.toggleModal}
+        />
+        {/* открываем модальное окно с большим изображением если state isModalOpen=true  */}
+        {isModalOpen && (
+          <Modal onClose={this.toggleModal}>
+            <img src={largeImageURL} alt={tags} />
+          </Modal>
+        )}
+      </ImageGalleryItemBox>
+    );
+  }
 }
-
 ImageGalleryItem.propTypes = {
-  SearchNameImgs: PropTypes.array.isRequired,
-  //   showPicture: PropTypes.func,
+  toggleModal: PropTypes.func,
 };
+
+export default ImageGalleryItem;

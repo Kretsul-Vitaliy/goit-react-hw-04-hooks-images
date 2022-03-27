@@ -112,3 +112,10 @@ Pixabay API поддерживает пагинацию, по умолчанию
   </div>
 </div>
 ```
+
+{(imageDataArray.length > 0) && <Button onLoadMore={this.nextPage}
+                        disabled={!(imagesFound > imageDataArray.length)} />}
+
+                    {this.state.showModalImage && <Modal onClose={this.toggleModal}>
+                        <img src={largeImageURL} alt={ tags } loading="lazy"/>
+                    </Modal>}
