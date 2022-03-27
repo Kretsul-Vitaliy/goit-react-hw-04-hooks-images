@@ -41,13 +41,13 @@ export default class Searchbar extends Component {
     this.setState({ foundImgs: "" });
   };
   //метод для отправки props {selectedOption} в state нашего App и запись в state Searchbar
-  // В дочернем элементе (компоненте) создан SelectMarks, при изменении  на нем будет
-  // вызываться функция onChangeSelect, которую мы передавали с помощью props "onChange".
+  // В дочернем элементе (компоненте Searchbar) создан компонент ребенок SelectMarks, при изменении  на нем будет
+  // вызываться функция onChangeSelect, которую мы передавали с помощью функции для форм "onChange" из SelectMarks.
   // Ей передается новый параметр из допустимых опций selectedOption, именно его мы
-  // хотим передать в родителя.
+  // хотим передать в родителя App.
   onChangeSelect = (selectedOption) => {
     this.setState({ selectedOption });
-    this.props.onChange(selectedOption); //onChange из Select
+    this.props.onChangeApp(selectedOption); // мы вызываем функцию this.props.onChangeApp(), которая будет предоставлена компонентом App и передаваемая в props Searchbar
   };
 
   render() {

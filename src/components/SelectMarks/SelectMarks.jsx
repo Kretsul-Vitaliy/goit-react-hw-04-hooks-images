@@ -18,12 +18,12 @@ class SliderMarks extends React.Component {
     // selectedOption: { value: 12, label: "12" },
   };
   //метод для выбора опций из списка
-  // В дочернем элементе (компоненте) создан Select, при изменении  на нем будет
-  // вызываться функция handleChangePerPage, которую мы передавали с помощью props "onChange".
-  // Ей передается новый параметр из допустимых опций selectedOption, именно его мы
-  // хотим передать в родителя.
+  // В дочернем элементе (компоненте SelectMarks) создан Select из библиотеки "react-select", при изменении  на нем будет
+  // вызываться функция handleChangePerPage, которую мы передавали с помощью функцией для форм "onChange".
+  // Ей передается новый параметр из допустимых опций в переменной perPage, значения value в props selectedOption, именно его мы
+  // хотим передать в родителя Searchbar
   handleChangePerPage = (selectedOption) => {
-    this.props.onChange({ selectedOption });
+    this.props.onChange({ selectedOption }); // мы вызываем функцию this.props.onChange(), которая будет предоставлена компонентом Searchbar и передаваемая в props SelectMarks
   };
   render() {
     return (
@@ -32,8 +32,8 @@ class SliderMarks extends React.Component {
         <Select
           options={perPage}
           // defaultValue={perPage[1]}
-          value={this.props.selectedOption}
-          onChange={this.handleChangePerPage} // Callback функция handleChangePerPage  передаваемая в props onChange
+          value={this.props.selectedOption} // этот пропс мы передаем selectedOption в функциею handleChangePerPage
+          onChange={this.handleChangePerPage} // Callback функция handleChangePerPage  передаваемая функцией для форм onChange
           isClearable
           isLoading
           theme={(theme, provided, state) => ({

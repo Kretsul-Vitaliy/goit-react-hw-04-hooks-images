@@ -28,7 +28,7 @@ export default class App extends Component {
     // console.log(this.state.foundImgs);
   };
   //Метод записи в state, применили для записи в App из SearchBar то что выбрали в Select в данном случае PerPage
-  // Создаём в родителе App функцию Callback handleSubmitPerPage. У неё есть входной параметр "selectedOption"
+  // Создаём в родителе App функцию Callback handleSubmitPerPage. У неё есть входной параметр "selectedOption" передаваемый из Searchbar
   // этот параметр мы присваиваем в стейт нашего компонента, с помощью функции setState.
   handleSubmitPerPage = (selectedOption) => {
     this.setState(selectedOption);
@@ -48,8 +48,8 @@ export default class App extends Component {
         >
           <Searchbar
             onSubmit={this.handleSearchBarSubmit}
-            //Передаём в дочерний элемент через props функцию handleSubmitPerPage
-            onChange={this.handleSubmitPerPage}
+            //Передаём в дочерний компонент Searchbar элемент через атрибут(транзит пропса) onChangeApp функцию handleSubmitPerPage
+            onChangeApp={this.handleSubmitPerPage}
           />
           <ImageGallery
             searchQuery={this.state.searchQuery}
