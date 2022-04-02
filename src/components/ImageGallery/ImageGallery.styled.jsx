@@ -15,5 +15,10 @@ export const ImageGalleryList = styled.ul`
 export const LoadMoreBox = styled.div`
   display: flex;
   justify-content: center;
-  margin: 10px auto;
+  margin: 10px 10px;
+  position: relative;
+`;
+export const LoadMoreWrap = styled.div`
+display: flex;
+  justify-content: center; */
 `;

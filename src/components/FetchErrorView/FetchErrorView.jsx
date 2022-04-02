@@ -1,4 +1,5 @@
 import errorImage from "../../image/error-img-api.webp";
+import PropTypes from "prop-types";
 
 export default function FetchErrorView({ message }) {
   return (
@@ -15,3 +16,6 @@ export default function FetchErrorView({ message }) {
     </div>
   );
 }
+FetchErrorView.propTypes = {
+  message: PropTypes.string.isRequired,
+};

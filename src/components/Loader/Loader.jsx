@@ -1,11 +1,11 @@
-import { LoaderWrap } from "./Loader.styled";
+import React from "react";
 import { Rings } from "react-loader-spinner";
-const Loader = () => {
+import { LoaderWrap } from "./Loader.styled";
+
+export default function Loader() {
   return (
     <LoaderWrap>
-      <Rings color="#00BFFF" height={150} width={150} />
+      <Rings ariaLabel="loading" color={"#00BFFF"} height={80} width={80} />
     </LoaderWrap>
   );
-};
-
-export default Loader;
+}

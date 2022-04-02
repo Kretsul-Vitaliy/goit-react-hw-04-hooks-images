@@ -2,13 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ButtonLoadMore } from "./Button.styled";
 
-const Button = ({ children, disabled, active, onClick, ...attrs }) => {
+export default function Button({
+  children,
+  disabled,
+  active,
+  onClick,
+  ...attrs
+}) {
   return (
     <ButtonLoadMore {...attrs} disabled={disabled} onClick={onClick}>
       {children}
     </ButtonLoadMore>
   );
-};
+}
 
 Button.propTypes = {
   children: PropTypes.node,
@@ -23,5 +29,3 @@ Button.defaultProps = {
   disabled: false,
   active: false,
 };
-
-export default Button;
