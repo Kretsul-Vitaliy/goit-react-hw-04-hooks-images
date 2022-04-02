@@ -1,20 +1,18 @@
 {
   "files": {
     "main.css": "/goit-react-hw-03-image-finder/static/css/main.43c86f1c.css",
-    "main.js": "/goit-react-hw-03-image-finder/static/js/main.c4a2fa06.js",
-    "static/js/976.1606d615.chunk.js": "/goit-react-hw-03-image-finder/static/js/976.1606d615.chunk.js",
-    "static/js/50.44469416.chunk.js": "/goit-react-hw-03-image-finder/static/js/50.44469416.chunk.js",
-    "static/js/774.85aeb84a.chunk.js": "/goit-react-hw-03-image-finder/static/js/774.85aeb84a.chunk.js",
+    "main.js": "/goit-react-hw-03-image-finder/static/js/main.4cb2317e.js",
+    "static/js/835.92cb664a.chunk.js": "/goit-react-hw-03-image-finder/static/js/835.92cb664a.chunk.js",
+    "static/js/565.5d26b80f.chunk.js": "/goit-react-hw-03-image-finder/static/js/565.5d26b80f.chunk.js",
     "static/media/error-img-api.webp": "/goit-react-hw-03-image-finder/static/media/error-img-api.bcb458f971ed82a7fdbc.webp",
     "index.html": "/goit-react-hw-03-image-finder/index.html",
     "main.43c86f1c.css.map": "/goit-react-hw-03-image-finder/static/css/main.43c86f1c.css.map",
-    "main.c4a2fa06.js.map": "/goit-react-hw-03-image-finder/static/js/main.c4a2fa06.js.map",
-    "976.1606d615.chunk.js.map": "/goit-react-hw-03-image-finder/static/js/976.1606d615.chunk.js.map",
-    "50.44469416.chunk.js.map": "/goit-react-hw-03-image-finder/static/js/50.44469416.chunk.js.map",
-    "774.85aeb84a.chunk.js.map": "/goit-react-hw-03-image-finder/static/js/774.85aeb84a.chunk.js.map"
+    "main.4cb2317e.js.map": "/goit-react-hw-03-image-finder/static/js/main.4cb2317e.js.map",
+    "835.92cb664a.chunk.js.map": "/goit-react-hw-03-image-finder/static/js/835.92cb664a.chunk.js.map",
+    "565.5d26b80f.chunk.js.map": "/goit-react-hw-03-image-finder/static/js/565.5d26b80f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.43c86f1c.css",
-    "static/js/main.c4a2fa06.js"
+    "static/js/main.4cb2317e.js"
   ]
 }
