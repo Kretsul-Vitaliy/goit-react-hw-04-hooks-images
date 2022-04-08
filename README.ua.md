@@ -90,3 +90,143 @@ Pixabay API підтримує пагінацію, за замовчування
   </div>
 </div>
 ```
+
+async componentDidUpdate(prevProps, prevState) {
+const PrevName = prevState.searchQuery;
+const NextName = this.state.searchQuery;
+const PerPage = this.state.perPage;
+const NextPage = this.state.page;
+const PrevPage = prevState.page;
+
+    try {
+      if (PrevName !== NextName) {
+        await this.setState({
+          searchImageArray: [],
+          page: NextPage,
+          perPage: PerPage,
+          showLoader: true,
+        });
+        await this.searchPictures();
+        toast.success(
+          await `Найдено ${this.state.totalHits} изображений ${NextName}`,
+          { delay: 200 }
+        );
+      }
+      if (NextPage !== PrevPage && NextPage !== 1) {
+        await this.setState({
+          perPage: PerPage,
+          showLoader: true,
+        });
+        await this.searchPictures();
+        await window.scrollBy({
+
+          top: 550,
+          behavior: "smooth",
+        });
+        if (this.state.searchImageArray.length >= this.state.totalHits) {
+          return await toast.info(
+            `Сожалеем, но вы достигли конца списка \n результатов поиска по ${NextName}.`
+          );
+        }
+      }
+    } catch (error) {
+
+    }
+
+}
+searchPictures = async () => {
+const NextName = this.state.searchQuery;
+const NextPage = this.state.page;
+const PerPage = this.state.perPage;
+const PicturesArray = FetchPixabayAPI(NextName, NextPage, PerPage);
+
+    await PicturesArray.then((resolve) => {
+      const picturesArray = resolve.hits.map(
+        ({ id, tags, webformatURL, largeImageURL }) => {
+          return { id, tags, webformatURL, largeImageURL };
+        }
+      );
+
+      //второй вариант записи с одним setState
+      this.setState((prevState) => {
+        return {
+          status: "resolved",
+          showLoader: false,
+          searchImageArray: [...prevState.searchImageArray, ...picturesArray],
+          error: null,
+          // resolve.totalHits - переменная количества найденных фото для API это максимальное количество
+          totalHits: resolve.totalHits,
+          totalPages: Math.ceil(resolve.totalHits / PerPage), //получаем общее количество страниц
+        };
+      });
+
+      if (picturesArray.length === 0) {
+        // return toast.error("There is no picture with that name!");
+        return Promise.reject(new Error(`Try another name: ${NextName}`));
+      }
+    }).catch((error) =>
+      this.setState({ status: "rejected", error: error.message })
+    );
+
+};
+
+//Метод записи в state, применили для записи в App из SearchBar то что записали в input и нажали на кнопку отправить
+handleSearchBarSubmit = async (event, prevState) => {
+await event.preventDefault();
+await this.setState({
+searchQuery: event.target.searchQuery.value,
+page: 1,
+modalImage: "",
+});
+
+    if (this.state.searchQuery === "") {
+      await toast.error("Введите имя");
+      return;
+    }
+
+    event.target.reset();
+
+};
+
+handleSelect = (event) => {
+this.setState({ perPage: event.value });
+};
+
+// метод добавления page в state из предыдущего стейта +1
+handleLoadMoreButton = async () => {
+try {
+await this.setState((prevState) => {
+return { page: prevState.page + 1 };
+});
+} catch (error) {}
+};
+//метод открытия закрытия модального окна
+toggleModal = () => {
+this.setState((state) => ({ isModalOpen: !state.isModalOpen }));
+};
+
+openLargeImage = (event) => {
+if (event.target.nodeName !== "IMG") {
+return;
+}
+this.setState({ modalImage: event.target.dataset.source });
+this.toggleModal();
+};
+
+//Метод записи в state, применили для записи в App из SearchBar то что записали в input и нажали на кнопку отправить
+handleSearchBarSubmit = async (event, prevState) => {
+await event.preventDefault();
+await this.setState({
+searchQuery: event.target.searchQuery.value,
+page: 1,
+modalImage: "",
+});
+
+    if (this.state.searchQuery === "") {
+      await toast.error("Введите имя");
+      return;
+    }
+
+    event.target.reset();
+
+};

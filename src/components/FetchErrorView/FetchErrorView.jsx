@@ -11,11 +11,12 @@ export default function FetchErrorView({ message }) {
         alt="There are no images with this name"
       />
       <p>
-        <b>{message}</b>
+        {/* <b>{message}</b> */}
+        <b>Try another name</b>
       </p>
     </div>
   );
 }
 FetchErrorView.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
 };

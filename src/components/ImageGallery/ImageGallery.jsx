@@ -41,6 +41,7 @@ export default function ImageGallery({
   if (status === "rejected") {
     return <FetchErrorView message={error} />;
   }
+
   if (status === "resolved") {
     return (
       <>

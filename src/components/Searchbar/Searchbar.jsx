@@ -11,7 +11,13 @@ import {
 } from "./Searchbar.styled";
 import SelectMarks from "../SelectMarks/";
 
-export default function Searchbar({ onSubmit, onChangeSelect }) {
+export default function Searchbar({
+  onSubmit,
+  onChangeSelect,
+  totalPages,
+  page,
+  searchImageArray,
+}) {
   return (
     <SearchbarHeader>
       <SearchForm onSubmit={(event) => onSubmit(event)}>
@@ -30,6 +36,11 @@ export default function Searchbar({ onSubmit, onChangeSelect }) {
         </SearchFormButton>
       </SearchForm>
       <SelectMarks onChange={(event) => onChangeSelect(event)} />
+      {searchImageArray.length > 0 && (
+        <p
+          style={{ fontSize: "xx-large", marginLeft: "10px" }}
+        >{`стр. ${page} из ${totalPages}`}</p>
+      )}
     </SearchbarHeader>
   );
 }
